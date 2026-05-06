@@ -1062,201 +1062,249 @@ function drawBackground() {
 }
 
 function drawMouth(x, y, openAmt) {
-  const r  = 55;
+  const r  = 60;
   const op = Math.min(1, Math.max(0, openAmt));
 
   ctx.save();
   ctx.translate(x, y);
 
-  // Face skin with realistic gradient
-  const faceGrad = ctx.createRadialGradient(-r * 0.35, -r * 0.35, r * 0.2, 0, r * 0.3, r * 1.1);
-  faceGrad.addColorStop(0, '#f5cba0');
-  faceGrad.addColorStop(0.4, '#f0c4a0');
-  faceGrad.addColorStop(0.7, '#e8b899');
-  faceGrad.addColorStop(1, '#d9a684');
-  ctx.fillStyle = faceGrad;
+  // Realistic face shape - oval
   ctx.beginPath();
-  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.ellipse(0, -2, r * 0.95, r, 0, 0, Math.PI * 2);
+
+  // Main skin tone with complex gradient for realism
+  const skinGrad = ctx.createRadialGradient(-r * 0.4, -r * 0.4, r * 0.1, 0, r * 0.2, r * 1.3);
+  skinGrad.addColorStop(0, '#f9d5b8');
+  skinGrad.addColorStop(0.3, '#f5caa8');
+  skinGrad.addColorStop(0.6, '#e8b898');
+  skinGrad.addColorStop(1, '#d99878');
+  ctx.fillStyle = skinGrad;
   ctx.fill();
 
-  // Face shadow for depth
-  ctx.fillStyle = 'rgba(0,0,0,0.1)';
+  // Subtle facial contours for depth
+  ctx.fillStyle = 'rgba(0,0,0,0.08)';
   ctx.beginPath();
-  ctx.arc(0, r * 0.2, r * 0.8, 0, Math.PI * 2);
+  ctx.ellipse(0, r * 0.15, r * 0.85, r * 0.7, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Jaw line subtle shadow
-  ctx.strokeStyle = 'rgba(0,0,0,0.15)';
-  ctx.lineWidth = 2;
+  // Nose shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.06)';
   ctx.beginPath();
-  ctx.arc(0, r * 0.1, r, Math.PI * 0.3, Math.PI * 0.7);
-  ctx.stroke();
+  ctx.ellipse(-2, -5, 4, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
 
-  // Eyebrows - more realistic
-  [-20, 20].forEach(ex => {
-    ctx.strokeStyle = '#5a3a1a';
-    ctx.lineWidth = 3.5;
+  // Eyebrows - thick and natural
+  [-22, 22].forEach(ex => {
+    ctx.strokeStyle = '#4a2a1a';
+    ctx.lineWidth = 4;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.beginPath();
-    ctx.arc(ex, -18, 9, Math.PI * 0.25, Math.PI * 0.75, false);
+    ctx.arc(ex, -22, 10, Math.PI * 0.2, Math.PI * 0.8, false);
+    ctx.stroke();
+
+    // Eyebrow shadow
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.arc(ex, -20, 10, Math.PI * 0.2, Math.PI * 0.8, false);
     ctx.stroke();
   });
 
-  // Eyes - realistic with iris
-  [-20, 20].forEach(ex => {
-    // Eye white
-    ctx.fillStyle = '#fff';
+  // Eyes - very realistic
+  [-23, 23].forEach((ex, idx) => {
+    // Eye whites with shadow
+    const eyeGrad = ctx.createRadialGradient(ex, -12, 1, ex, -8, 6);
+    eyeGrad.addColorStop(0, '#fffef9');
+    eyeGrad.addColorStop(1, '#f5f0e8');
+    ctx.fillStyle = eyeGrad;
     ctx.beginPath();
-    ctx.ellipse(ex, -10, 8, 7, 0, 0, Math.PI * 2);
+    ctx.ellipse(ex, -12, 9.5, 8, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Iris
-    const irisGrad = ctx.createRadialGradient(ex - 2, -12, 1, ex, -10, 4);
-    irisGrad.addColorStop(0, '#8b5a3c');
-    irisGrad.addColorStop(0.6, '#6b4423');
+    // Eye outline shadow
+    ctx.strokeStyle = 'rgba(0,0,0,0.15)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+
+    // Iris - detailed with multiple gradients
+    const irisGrad = ctx.createRadialGradient(ex - 2.5, -14, 0.5, ex + 0.5, -11, 4);
+    irisGrad.addColorStop(0, '#a0795a');
+    irisGrad.addColorStop(0.4, '#7a5538');
+    irisGrad.addColorStop(0.8, '#5a3a28');
     irisGrad.addColorStop(1, '#3a2a1a');
     ctx.fillStyle = irisGrad;
     ctx.beginPath();
-    ctx.arc(ex, -10, 4, 0, Math.PI * 2);
+    ctx.arc(ex, -11.5, 4.5, 0, Math.PI * 2);
     ctx.fill();
 
     // Pupil
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = '#0a0a0a';
     ctx.beginPath();
-    ctx.arc(ex + 1, -11, 2, 0, Math.PI * 2);
+    ctx.arc(ex + 0.8, -12, 2.2, 0, Math.PI * 2);
     ctx.fill();
 
-    // Eye shine - realistic
-    ctx.fillStyle = 'rgba(255,255,255,0.9)';
+    // Iris shine - double highlights for realism
+    ctx.fillStyle = 'rgba(255,255,255,0.85)';
     ctx.beginPath();
-    ctx.arc(ex + 2, -12, 1.2, 0, Math.PI * 2);
+    ctx.arc(ex + 1.5, -13.5, 1.5, 0, Math.PI * 2);
     ctx.fill();
 
-    // Eyelid shadow
-    ctx.fillStyle = 'rgba(100,60,40,0.25)';
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
     ctx.beginPath();
-    ctx.ellipse(ex, -14, 8, 2, 0, 0, Math.PI * 2);
+    ctx.arc(ex - 1, -9.5, 0.8, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Upper eyelid
+    ctx.fillStyle = 'rgba(50,30,20,0.2)';
+    ctx.beginPath();
+    ctx.ellipse(ex, -16.5, 9.5, 2.5, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Lower eyelid
+    ctx.fillStyle = 'rgba(50,30,20,0.12)';
+    ctx.beginPath();
+    ctx.ellipse(ex, -7, 9.5, 1.5, 0, 0, Math.PI * 2);
     ctx.fill();
   });
 
-  // Cheeks - natural blush
-  [-26, 26].forEach(cx => {
-    ctx.fillStyle = 'rgba(255,120,100,0.4)';
+  // Cheeks - natural flush with two-tone
+  [-28, 28].forEach(cx => {
+    // Main cheek
+    ctx.fillStyle = 'rgba(255,100,90,0.3)';
     ctx.beginPath();
-    ctx.arc(cx, 8, 14, 0, Math.PI * 2);
+    ctx.arc(cx, 10, 16, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Cheek highlight (higher on face)
+    ctx.fillStyle = 'rgba(255,150,130,0.25)';
+    ctx.beginPath();
+    ctx.arc(cx, 5, 10, 0, Math.PI * 2);
     ctx.fill();
   });
 
   // Mouth and lips
-  const mouthH = op * 24;
-  const mouthY = 20;
-  const mouthW = 28;
+  const mouthH = op * 26;
+  const mouthY = 24;
+  const mouthW = 32;
 
-  // Upper lip - realistic
-  if (op < 0.3) {
-    const lipGrad = ctx.createLinearGradient(0, mouthY - 5, 0, mouthY + 2);
-    lipGrad.addColorStop(0, '#d9556b');
-    lipGrad.addColorStop(1, '#c73856');
-    ctx.fillStyle = lipGrad;
+  // Upper lip - detailed
+  if (op < 0.25) {
+    const upperLipGrad = ctx.createLinearGradient(0, mouthY - 6, 0, mouthY + 1);
+    upperLipGrad.addColorStop(0, '#c83a50');
+    upperLipGrad.addColorStop(0.5, '#d9556b');
+    upperLipGrad.addColorStop(1, '#b82a45');
+    ctx.fillStyle = upperLipGrad;
     ctx.beginPath();
-    ctx.ellipse(0, mouthY - 3, mouthW * 0.95, 5, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY - 2, mouthW * 0.98, 5.5, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Lip highlight
-    ctx.fillStyle = 'rgba(255,200,200,0.5)';
+    // Upper lip shine
+    ctx.fillStyle = 'rgba(255,220,220,0.6)';
     ctx.beginPath();
-    ctx.ellipse(-mouthW * 0.3, mouthY - 4, mouthW * 0.4, 2, 0, 0, Math.PI * 2);
+    ctx.ellipse(-mouthW * 0.25, mouthY - 4, mouthW * 0.35, 1.5, 0, 0, Math.PI * 2);
     ctx.fill();
+
+    // Lip line detail
+    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.ellipse(0, mouthY, mouthW * 0.98, 0.5, 0, 0, Math.PI * 2);
+    ctx.stroke();
   }
 
   // Mouth opening when eating
   if (op > 0.15) {
-    // Inner mouth shadow
-    ctx.fillStyle = 'rgba(50,10,20,0.8)';
+    // Inner mouth - very dark
+    ctx.fillStyle = 'rgba(30,5,15,0.95)';
     ctx.beginPath();
-    ctx.ellipse(0, mouthY + mouthH * 0.3, mouthW * 0.9, Math.max(4, mouthH * 0.8), 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY + mouthH * 0.35, mouthW * 0.92, Math.max(5, mouthH * 0.85), 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Gum color
-    ctx.fillStyle = '#a02845';
+    // Gum color - realistic pink/red
+    ctx.fillStyle = '#a8355a';
     ctx.beginPath();
-    ctx.ellipse(0, mouthY + mouthH * 0.5, mouthW * 0.8, Math.max(3, mouthH * 0.4), 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY + mouthH * 0.5, mouthW * 0.85, Math.max(4, mouthH * 0.45), 0, 0, Math.PI * 2);
     ctx.fill();
   }
 
-  // Tongue - realistic
+  // Tongue - very realistic
   if (op > 0.35) {
-    const tongueGrad = ctx.createLinearGradient(0, mouthY + mouthH * 0.5, 0, mouthY + mouthH);
-    tongueGrad.addColorStop(0, '#e06b6b');
-    tongueGrad.addColorStop(1, '#c93a3a');
+    const tongueGrad = ctx.createLinearGradient(0, mouthY + mouthH * 0.45, 0, mouthY + mouthH);
+    tongueGrad.addColorStop(0, '#e88080');
+    tongueGrad.addColorStop(0.6, '#d85555');
+    tongueGrad.addColorStop(1, '#b84545');
     ctx.fillStyle = tongueGrad;
     ctx.beginPath();
-    ctx.ellipse(0, mouthY + mouthH * 0.6, 16, mouthH * 0.45, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY + mouthH * 0.65, 18, mouthH * 0.5, 0, 0, Math.PI * 2);
     ctx.fill();
 
     // Tongue center highlight
-    ctx.fillStyle = 'rgba(255,150,150,0.6)';
+    ctx.fillStyle = 'rgba(255,180,180,0.7)';
     ctx.beginPath();
-    ctx.ellipse(0, mouthY + mouthH * 0.4, 6, mouthH * 0.25, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY + mouthH * 0.35, 7, mouthH * 0.3, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    // Tongue texture
-    ctx.strokeStyle = 'rgba(0,0,0,0.2)';
-    ctx.lineWidth = 1;
-    for (let i = -2; i <= 2; i++) {
+    // Tongue texture lines
+    ctx.strokeStyle = 'rgba(100,30,30,0.4)';
+    ctx.lineWidth = 1.2;
+    for (let i = -3; i <= 3; i++) {
       ctx.beginPath();
-      ctx.moveTo(i * 4, mouthY + mouthH * 0.5);
+      ctx.moveTo(i * 4, mouthY + mouthH * 0.55);
       ctx.lineTo(i * 4, mouthY + mouthH);
       ctx.stroke();
     }
   }
 
-  // Teeth - realistic when mouth open
+  // Teeth - photorealistic when open
   if (op > 0.25) {
-    ctx.fillStyle = '#faf8f3';
-    const toothH = Math.min(mouthH * 0.5, 11);
-    const toothW = 5.5;
-    const spacing = 7.5;
+    ctx.fillStyle = '#f8f5f0';
+    const toothH = Math.min(mouthH * 0.52, 12);
+    const toothW = 6;
+    const spacing = 8;
 
     // Upper teeth
     for (let i = -2.5; i <= 2.5; i++) {
       if (Math.abs(i) < 2.5) {
-        ctx.fillRect(i * spacing - toothW / 2, mouthY - mouthH * 0.4, toothW, toothH);
+        const tx = i * spacing;
 
-        // Tooth shading
-        ctx.fillStyle = 'rgba(0,0,0,0.1)';
-        ctx.fillRect(i * spacing - toothW / 2, mouthY - mouthH * 0.4 + toothH * 0.5, toothW, toothH * 0.5);
-        ctx.fillStyle = '#faf8f3';
+        // Tooth body
+        ctx.fillRect(tx - toothW / 2, mouthY - mouthH * 0.35, toothW, toothH);
 
-        // Tooth edge lines
-        ctx.strokeStyle = 'rgba(200,180,160,0.5)';
+        // Tooth gradient for depth
+        ctx.fillStyle = 'rgba(0,0,0,0.08)';
+        ctx.fillRect(tx - toothW / 2 + toothW * 0.6, mouthY - mouthH * 0.35, toothW * 0.4, toothH);
+        ctx.fillStyle = '#f8f5f0';
+
+        // Tooth edge definition
+        ctx.strokeStyle = 'rgba(150,130,110,0.4)';
         ctx.lineWidth = 0.5;
-        ctx.strokeRect(i * spacing - toothW / 2, mouthY - mouthH * 0.4, toothW, toothH);
+        ctx.strokeRect(tx - toothW / 2, mouthY - mouthH * 0.35, toothW, toothH);
       }
     }
 
-    // Lower teeth (fewer and smaller)
+    // Lower teeth (smaller)
     for (let i = -1.5; i <= 1.5; i++) {
       if (Math.abs(i) < 1.5) {
-        ctx.fillStyle = '#faf8f3';
-        ctx.fillRect(i * spacing + spacing * 0.5 - toothW / 2, mouthY + mouthH * 0.2, toothW * 0.9, toothH * 0.6);
+        const tx = i * spacing + spacing * 0.5;
+        ctx.fillStyle = '#f8f5f0';
+        ctx.fillRect(tx - toothW / 2, mouthY + mouthH * 0.25, toothW * 0.85, toothH * 0.65);
 
-        ctx.strokeStyle = 'rgba(200,180,160,0.5)';
+        ctx.strokeStyle = 'rgba(150,130,110,0.4)';
         ctx.lineWidth = 0.5;
-        ctx.strokeRect(i * spacing + spacing * 0.5 - toothW / 2, mouthY + mouthH * 0.2, toothW * 0.9, toothH * 0.6);
+        ctx.strokeRect(tx - toothW / 2, mouthY + mouthH * 0.25, toothW * 0.85, toothH * 0.65);
       }
     }
   }
 
   // Lower lip
   if (op > 0.2) {
-    const lipGrad = ctx.createLinearGradient(0, mouthY + mouthH * 0.5, 0, mouthY + mouthH * 0.8);
-    lipGrad.addColorStop(0, '#a02845');
-    lipGrad.addColorStop(1, '#8b1f34');
-    ctx.fillStyle = lipGrad;
+    const lowerLipGrad = ctx.createLinearGradient(0, mouthY + mouthH * 0.5, 0, mouthY + mouthH * 0.85);
+    lowerLipGrad.addColorStop(0, '#9a3045');
+    lowerLipGrad.addColorStop(1, '#7a2035');
+    ctx.fillStyle = lowerLipGrad;
     ctx.beginPath();
-    ctx.ellipse(0, mouthY + mouthH * 0.6, mouthW * 0.85, mouthH * 0.35, 0, 0, Math.PI * 2);
+    ctx.ellipse(0, mouthY + mouthH * 0.65, mouthW * 0.9, mouthH * 0.4, 0, 0, Math.PI * 2);
     ctx.fill();
   }
 
@@ -1325,13 +1373,20 @@ function loop() {
   // --- Round timer ---
   if (roundActive && roundTimeLeft >= 0) {
     ctx.save();
-    ctx.font = 'bold 48px Segoe UI, sans-serif';
+    ctx.font = 'bold 56px Segoe UI, sans-serif';
     ctx.textAlign = 'center';
-    ctx.textBaseline = 'top';
+    ctx.textBaseline = 'middle';
 
-    // Timer background
-    ctx.fillStyle = 'rgba(0,0,0,0.3)';
-    ctx.fillRect(W / 2 - 80, 20, 160, 70);
+    // Timer background with rounded corners effect
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.beginPath();
+    ctx.roundRect(W / 2 - 90, 80, 180, 90, 15);
+    ctx.fill();
+
+    // Border
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = 2;
+    ctx.stroke();
 
     // Timer color based on time remaining
     let timerColor = '#64ff00';
@@ -1340,14 +1395,14 @@ function loop() {
 
     ctx.fillStyle = timerColor;
     ctx.shadowColor = timerColor;
-    ctx.shadowBlur = 20;
-    ctx.fillText(roundTimeLeft, W / 2, 35);
+    ctx.shadowBlur = 25;
+    ctx.fillText(roundTimeLeft, W / 2, 115);
 
-    // "SEC" label
-    ctx.font = 'bold 14px Segoe UI, sans-serif';
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    // "SECONDS" label
+    ctx.font = 'bold 16px Segoe UI, sans-serif';
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
     ctx.shadowColor = 'transparent';
-    ctx.fillText('SECONDS', W / 2, 75);
+    ctx.fillText('SECONDS LEFT', W / 2, 155);
 
     ctx.restore();
   }
