@@ -18,103 +18,249 @@ const SWEETS = {
 // ── Sweet drawing functions ────────────────────────────────────────────────
 function drawLolly(ctx, size) {
   const r = size * 0.4;
-  ctx.fillStyle = '#ff1493';
+
+  // Lolly body with gradient
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff5fc4');
+  grad.addColorStop(0.7, '#ff1493');
+  grad.addColorStop(1, '#c71670');
+  ctx.fillStyle = grad;
   ctx.beginPath();
   ctx.arc(0, 0, r, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#ff69b4';
-  ctx.lineWidth = 2;
+
+  // Highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.4, -r * 0.4, r * 0.3, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Edge shadow
+  ctx.strokeStyle = '#a01050';
+  ctx.lineWidth = 2.5;
   ctx.stroke();
-  ctx.fillStyle = '#ff69b4';
-  ctx.fillRect(-r * 0.2, r, r * 0.4, r * 1.2);
+
+  // Stick
+  ctx.fillStyle = '#d4a574';
+  ctx.shadowColor = 'rgba(0,0,0,0.5)';
+  ctx.shadowBlur = 3;
+  ctx.shadowOffsetX = 1;
+  ctx.shadowOffsetY = 1;
+  ctx.fillRect(-r * 0.15, r, r * 0.3, r * 1.3);
+  ctx.shadowColor = 'transparent';
 }
 
 function drawCandy(ctx, size) {
   const r = size * 0.35;
-  ctx.fillStyle = '#ffb6c1';
+
+  // Candy body with gradient
+  const grad = ctx.createLinearGradient(-r, 0, r, 0);
+  grad.addColorStop(0, '#ffb6c1');
+  grad.addColorStop(0.5, '#ffc0cb');
+  grad.addColorStop(1, '#ff99aa');
+  ctx.fillStyle = grad;
   ctx.beginPath();
   ctx.ellipse(0, 0, r * 1.2, r * 0.8, Math.PI * 0.15, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#ff69b4';
+
+  // Shiny highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.beginPath();
+  ctx.ellipse(-r * 0.4, -r * 0.2, r * 0.35, r * 0.25, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Edge
+  ctx.strokeStyle = '#ff6b8f';
   ctx.lineWidth = 1.5;
   ctx.stroke();
-  ctx.fillStyle = 'rgba(255,255,255,0.5)';
-  ctx.beginPath();
-  ctx.ellipse(-r * 0.5, -r * 0.3, r * 0.4, r * 0.3, 0, 0, Math.PI * 2);
-  ctx.fill();
 }
 
 function drawChocolate(ctx, size) {
   const w = size * 0.5, h = size * 0.6;
-  ctx.fillStyle = '#6b4423';
+
+  // Main body with gradient
+  const grad = ctx.createLinearGradient(-w, -h, w, h);
+  grad.addColorStop(0, '#8b5a3c');
+  grad.addColorStop(0.5, '#6b4423');
+  grad.addColorStop(1, '#4a2511');
+  ctx.fillStyle = grad;
   ctx.fillRect(-w, -h, w * 2, h * 2);
-  ctx.strokeStyle = '#4a2511';
+
+  // Edge highlight
+  ctx.strokeStyle = '#9b6a4c';
   ctx.lineWidth = 2;
   ctx.strokeRect(-w, -h, w * 2, h * 2);
-  ctx.fillStyle = '#8b5a3c';
+
+  // Chocolate squares
+  ctx.fillStyle = '#5a3421';
   for (let i = 0; i < 4; i++) {
     for (let j = 0; j < 3; j++) {
-      ctx.fillRect(-w + 5 + i * 8, -h + 3 + j * 10, 4, 5);
+      const x = -w + 5 + i * 8;
+      const y = -h + 3 + j * 10;
+      ctx.fillRect(x, y, 4, 5);
+      ctx.fillStyle = 'rgba(255,255,255,0.15)';
+      ctx.fillRect(x, y, 2, 2);
+      ctx.fillStyle = '#5a3421';
     }
   }
+
+  // Top shine
+  ctx.fillStyle = 'rgba(255,255,255,0.25)';
+  ctx.fillRect(-w + 2, -h + 2, w * 1.5, h * 0.3);
 }
 
 function drawIceCream(ctx, size) {
   const coneH = size * 0.7, r = size * 0.35;
-  ctx.fillStyle = '#cd9557';
+
+  // Cone with pattern
+  const grad = ctx.createLinearGradient(-r, 0, r, coneH);
+  grad.addColorStop(0, '#d4a85c');
+  grad.addColorStop(1, '#a0743d');
+  ctx.fillStyle = grad;
   ctx.beginPath();
   ctx.moveTo(-r, 0);
   ctx.lineTo(r, 0);
   ctx.lineTo(0, coneH);
   ctx.fill();
+
+  // Cone crosshatch pattern
   ctx.strokeStyle = '#8b6914';
-  ctx.lineWidth = 1.5;
-  ctx.stroke();
-  ctx.fillStyle = '#fff8dc';
+  ctx.lineWidth = 1;
+  for (let i = 0; i < 5; i++) {
+    const x = -r + (r * 2 / 5) * i;
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x - coneH * 0.3, coneH);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x + coneH * 0.3, coneH);
+    ctx.stroke();
+  }
+
+  // Ice cream scoop with gradient
+  const scoopGrad = ctx.createRadialGradient(-r * 0.2, -r * 0.7, r * 0.2, 0, -r * 0.5, r);
+  scoopGrad.addColorStop(0, '#fffacd');
+  scoopGrad.addColorStop(0.6, '#fff8dc');
+  scoopGrad.addColorStop(1, '#f0e68c');
+  ctx.fillStyle = scoopGrad;
   ctx.beginPath();
   ctx.arc(0, -r * 0.5, r, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#f0e68c';
+
+  // Scoop highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.8, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = '#e0d070';
   ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(0, -r * 0.5, r, 0, Math.PI * 2);
   ctx.stroke();
 }
 
 function drawDonut(ctx, size) {
   const outer = size * 0.45, inner = size * 0.2;
-  ctx.fillStyle = '#daa520';
+
+  // Donut body with gradient
+  const grad = ctx.createRadialGradient(-outer * 0.3, -outer * 0.3, 0, 0, 0, outer);
+  grad.addColorStop(0, '#e6c200');
+  grad.addColorStop(0.7, '#daa520');
+  grad.addColorStop(1, '#a87c04');
+  ctx.fillStyle = grad;
   ctx.beginPath();
   ctx.arc(0, 0, outer, 0, Math.PI * 2);
   ctx.fill();
+
+  // Hole
   ctx.fillStyle = '#0e0022';
   ctx.beginPath();
   ctx.arc(0, 0, inner, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = '#ff6347';
-  for (let i = 0; i < 8; i++) {
-    const angle = (Math.PI * 2 / 8) * i;
-    const x = Math.cos(angle) * (outer + inner) * 0.5;
-    const y = Math.sin(angle) * (outer + inner) * 0.5;
+
+  // Top shine on donut
+  ctx.fillStyle = 'rgba(255,255,255,0.35)';
+  ctx.beginPath();
+  ctx.arc(-outer * 0.4, -outer * 0.4, outer * 0.4, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Sprinkles
+  ctx.shadowColor = 'rgba(0,0,0,0.4)';
+  ctx.shadowBlur = 2;
+  for (let i = 0; i < 12; i++) {
+    const angle = (Math.PI * 2 / 12) * i;
+    const x = Math.cos(angle) * (outer + inner) * 0.55;
+    const y = Math.sin(angle) * (outer + inner) * 0.55;
+    const colors = ['#ff6347', '#ff4500', '#ff8c00', '#ffd700'];
+    ctx.fillStyle = colors[i % colors.length];
     ctx.fillRect(x - 2, y - 2, 4, 4);
   }
+  ctx.shadowColor = 'transparent';
+
+  // Edge shadow
+  ctx.strokeStyle = '#8b5c00';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(0, 0, outer, 0, Math.PI * 2);
+  ctx.stroke();
 }
 
 function drawCake(ctx, size) {
   const w = size * 0.4, h = size * 0.5;
-  ctx.fillStyle = '#d2691e';
+
+  // Cake body with gradient
+  const grad = ctx.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, '#8b4513');
+  grad.addColorStop(0.5, '#6b3410');
+  grad.addColorStop(1, '#4a2208');
+  ctx.fillStyle = grad;
   ctx.fillRect(-w, 0, w * 2, h);
-  ctx.fillStyle = '#fff5ee';
+
+  // Cake edge
+  ctx.strokeStyle = '#3a1808';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(-w, 0, w * 2, h);
+
+  // Left frosting swirl
+  const frosting1 = ctx.createRadialGradient(-w * 0.6, -h * 0.6, 0, -w * 0.5, -h * 0.4, size * 0.3);
+  frosting1.addColorStop(0, '#fff5ee');
+  frosting1.addColorStop(0.7, '#ffebdb');
+  frosting1.addColorStop(1, '#ffe4d0');
+  ctx.fillStyle = frosting1;
   ctx.beginPath();
-  ctx.arc(-w * 0.5, -h * 0.5, size * 0.25, 0, Math.PI * 2);
+  ctx.arc(-w * 0.5, -h * 0.5, size * 0.28, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = '#ff69b4';
+  ctx.strokeStyle = '#f0d9c8';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Right frosting swirl
+  const frosting2 = ctx.createRadialGradient(w * 0.6, -h * 0.6, 0, w * 0.5, -h * 0.4, size * 0.3);
+  frosting2.addColorStop(0, '#ff1493');
+  frosting2.addColorStop(0.7, '#ff69b4');
+  frosting2.addColorStop(1, '#ff85c1');
+  ctx.fillStyle = frosting2;
   ctx.beginPath();
-  ctx.arc(w * 0.5, -h * 0.5, size * 0.25, 0, Math.PI * 2);
+  ctx.arc(w * 0.5, -h * 0.5, size * 0.28, 0, Math.PI * 2);
   ctx.fill();
+  ctx.strokeStyle = '#ff4a9e';
+  ctx.lineWidth = 1;
+  ctx.stroke();
+
+  // Candle
+  ctx.fillStyle = '#e8d4a0';
+  ctx.fillRect(-w * 0.12, -h * 1.3, w * 0.24, h * 0.8);
+
+  // Flame
   ctx.fillStyle = '#ffff00';
   ctx.beginPath();
-  ctx.moveTo(0, -h * 1.2);
-  ctx.lineTo(-h * 0.2, -h * 0.8);
-  ctx.lineTo(h * 0.2, -h * 0.8);
+  ctx.ellipse(0, -h * 1.5, w * 0.15, h * 0.25, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ff6347';
+  ctx.beginPath();
+  ctx.ellipse(0, -h * 1.45, w * 0.08, h * 0.2, 0, 0, Math.PI * 2);
   ctx.fill();
 }
 
@@ -294,55 +440,125 @@ function drawBackground() {
 }
 
 function drawMouth(x, y, openAmt) {
-  const r  = 30;
+  const r  = 50;
   const op = Math.min(1, Math.max(0, openAmt));
 
   ctx.save();
   ctx.translate(x, y);
 
-  // Face circle
+  // Face with gradient
+  const faceGrad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  faceGrad.addColorStop(0, '#ffd9a3');
+  faceGrad.addColorStop(0.8, '#ffe0b2');
+  faceGrad.addColorStop(1, '#d4a574');
+  ctx.fillStyle = faceGrad;
   ctx.beginPath();
   ctx.arc(0, 0, r, 0, Math.PI * 2);
-  ctx.fillStyle = '#ffe0b2';
   ctx.fill();
-  ctx.strokeStyle = '#d4842a';
-  ctx.lineWidth = 1.5;
+
+  // Face shadow
+  ctx.strokeStyle = '#c9915c';
+  ctx.lineWidth = 3;
   ctx.stroke();
 
-  // Eyes
-  [[-11, -9], [11, -9]].forEach(([ex, ey]) => {
+  // Eyebrows
+  [-18, 18].forEach(ex => {
+    ctx.strokeStyle = '#8b6914';
+    ctx.lineWidth = 3;
+    ctx.lineCap = 'round';
     ctx.beginPath();
-    ctx.arc(ex, ey, 4, 0, Math.PI * 2);
-    ctx.fillStyle = '#2a1a00';
+    ctx.arc(ex, -20, 8, Math.PI * 0.3, Math.PI * 0.7, false);
+    ctx.stroke();
+  });
+
+  // Eyes with gradient
+  [-18, 18].forEach(ex => {
+    const eyeGrad = ctx.createRadialGradient(ex - 2, -15, 0, ex, -12, 8);
+    eyeGrad.addColorStop(0, '#4a3020');
+    eyeGrad.addColorStop(1, '#1a0a00');
+    ctx.fillStyle = eyeGrad;
+    ctx.beginPath();
+    ctx.arc(ex, -12, 6, 0, Math.PI * 2);
     ctx.fill();
+
+    // Pupil
+    ctx.fillStyle = '#000';
     ctx.beginPath();
-    ctx.arc(ex + 1.2, ey - 1.2, 1.4, 0, Math.PI * 2);
-    ctx.fillStyle = '#fff';
+    ctx.arc(ex, -12, 3, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Eye highlight
+    ctx.fillStyle = 'rgba(255,255,255,0.8)';
+    ctx.beginPath();
+    ctx.arc(ex - 1, -14, 1.5, 0, Math.PI * 2);
     ctx.fill();
   });
 
   // Cheeks
-  [[-17, 2], [17, 2]].forEach(([cx2, cy2]) => {
+  [-25, 25].forEach(cx => {
+    ctx.fillStyle = 'rgba(255,100,80,0.35)';
     ctx.beginPath();
-    ctx.arc(cx2, cy2, 5, 0, Math.PI * 2);
-    ctx.fillStyle = 'rgba(255,140,100,0.4)';
+    ctx.arc(cx, 5, 12, 0, Math.PI * 2);
     ctx.fill();
   });
 
-  // Open mouth
-  const mouthH = op * 14;
+  // Mouth opening
+  const mouthH = op * 22;
+  const mouthY = 18;
+
+  // Mouth outline
+  ctx.fillStyle = op > 0.15 ? '#6b1f2f' : '#d4842a';
   ctx.beginPath();
-  ctx.ellipse(0, 12, 16, Math.max(2, mouthH), 0, 0, Math.PI * 2);
-  ctx.fillStyle = op > 0.1 ? '#8b0020' : '#d4842a';
+  ctx.ellipse(0, mouthY, 24, Math.max(3, mouthH), 0, 0, Math.PI * 2);
   ctx.fill();
 
+  // Mouth shadow
+  ctx.strokeStyle = '#4a0f1f';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(0, mouthY, 24, Math.max(3, mouthH), 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Tongue
+  if (op > 0.3) {
+    ctx.fillStyle = '#c85a54';
+    ctx.beginPath();
+    ctx.ellipse(0, mouthY + mouthH * 0.7, 14, mouthH * 0.4, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Tongue highlight
+    ctx.fillStyle = 'rgba(255,150,140,0.5)';
+    ctx.beginPath();
+    ctx.ellipse(-4, mouthY + mouthH * 0.5, 6, mouthH * 0.25, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
   // Teeth when open
-  if (op > 0.25) {
-    ctx.fillStyle = '#fff';
-    const tw = 9, th = Math.min(mouthH * 0.55, 7);
-    [-12, -3, 6].forEach(tx => {
-      ctx.fillRect(tx, 10, tw, th);
-    });
+  if (op > 0.2) {
+    ctx.fillStyle = '#fffef9';
+    const toothH = Math.min(mouthH * 0.6, 10);
+    const toothW = 6;
+    const spacing = 8;
+
+    for (let i = -2; i <= 2; i++) {
+      ctx.fillRect(i * spacing - toothW / 2, mouthY - mouthH * 0.5, toothW, toothH);
+      ctx.strokeStyle = '#d0d0d0';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(i * spacing - toothW / 2, mouthY - mouthH * 0.5, toothW, toothH);
+
+      // Tooth shadow
+      ctx.fillStyle = 'rgba(0,0,0,0.15)';
+      ctx.fillRect(i * spacing - toothW / 2, mouthY - mouthH * 0.5 + toothH * 0.6, toothW, toothH * 0.4);
+      ctx.fillStyle = '#fffef9';
+    }
+
+    // Bottom teeth
+    for (let i = -1; i <= 1; i++) {
+      ctx.fillRect(i * spacing + spacing * 0.5 - toothW / 2, mouthY + mouthH * 0.35, toothW, toothH * 0.7);
+      ctx.strokeStyle = '#d0d0d0';
+      ctx.lineWidth = 1;
+      ctx.strokeRect(i * spacing + spacing * 0.5 - toothW / 2, mouthY + mouthH * 0.35, toothW, toothH * 0.7);
+    }
   }
 
   ctx.restore();
