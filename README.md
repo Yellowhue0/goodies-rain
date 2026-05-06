@@ -14,16 +14,20 @@ A fun browser game where it rains goodies and you have to eat them by clicking o
 
 ## 🍭 Goodie Types
 
-Pick and mix style candies! Toggle which goodies fall using the emoji buttons in the top bar:
+A full range of Swedish pick and mix candies! Toggle which goodies fall using the buttons in the top bar:
 
 | Goodie | Points |
 |--------|--------|
 | 🍭 Lollipop | 1 coin |
-| 🍬 Candy | 1 coin |
+| 🍬 Hard Candy | 1 coin |
 | 🍫 Chocolate | 2 coins |
 | 🍦 Ice Cream | 3 coins |
 | 🍩 Donut | 2 coins |
 | 🐻 Gummy Bear | 2 coins |
+| ⬛ Licorice | 1 coin |
+| ⚡ Sour Gummy | 2 coins |
+| ☁️ Marshmallow | 2 coins |
+| 🟫 Toffee | 3 coins |
 
 ## ⚡ Combo System
 

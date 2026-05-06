@@ -7,12 +7,16 @@
 
 // ── Sweet definitions ──────────────────────────────────────────────────────
 const SWEETS = {
-  lolly:    { baseSize: 32, points: 1, draw: drawLolly },
-  candy:    { baseSize: 28, points: 1, draw: drawCandy },
-  choc:     { baseSize: 30, points: 2, draw: drawChocolate },
-  icecream: { baseSize: 34, points: 3, draw: drawIceCream },
-  donut:    { baseSize: 32, points: 2, draw: drawDonut },
-  gummy:    { baseSize: 28, points: 2, draw: drawGummyBear },
+  lolly:      { baseSize: 32, points: 1, draw: drawLolly },
+  candy:      { baseSize: 28, points: 1, draw: drawCandy },
+  choc:       { baseSize: 30, points: 2, draw: drawChocolate },
+  icecream:   { baseSize: 34, points: 3, draw: drawIceCream },
+  donut:      { baseSize: 32, points: 2, draw: drawDonut },
+  gummy:      { baseSize: 28, points: 2, draw: drawGummyBear },
+  licorice:   { baseSize: 36, points: 1, draw: drawLicorice },
+  sour:       { baseSize: 26, points: 2, draw: drawSourGummy },
+  marshmallow:{ baseSize: 30, points: 2, draw: drawMarshmallow },
+  toffee:     { baseSize: 28, points: 3, draw: drawToffee },
 };
 
 // ── Sweet drawing functions ────────────────────────────────────────────────
@@ -280,6 +284,153 @@ function drawGummyBear(ctx, size) {
   ctx.beginPath();
   ctx.arc(r * 0.3, -r * 0.25, r * 0.04, 0, Math.PI * 2);
   ctx.fill();
+}
+
+function drawLicorice(ctx, size) {
+  const h = size * 0.7, w = size * 0.25;
+
+  // Licorice string with gradient
+  const grad = ctx.createLinearGradient(0, -h, 0, h);
+  grad.addColorStop(0, '#2a2a2a');
+  grad.addColorStop(0.5, '#1a1a1a');
+  grad.addColorStop(1, '#0a0a0a');
+  ctx.fillStyle = grad;
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+
+  // Shine on licorice
+  ctx.fillStyle = 'rgba(100,100,100,0.4)';
+  ctx.fillRect(-w + 1, -h + 2, w * 0.8, h * 1.8);
+
+  // Subtle texture
+  ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+  ctx.lineWidth = 0.5;
+  for (let i = -h; i < h; i += 3) {
+    ctx.beginPath();
+    ctx.moveTo(-w, i);
+    ctx.lineTo(w, i);
+    ctx.stroke();
+  }
+}
+
+function drawSourGummy(ctx, size) {
+  const r = size * 0.38;
+  const colors = ['#ff6b00', '#ffff00', '#ff00ff', '#00ff00', '#00ffff'];
+  const colorIndex = Math.floor(Math.random() * colors.length);
+  const color = colors[colorIndex];
+
+  // Base shape - kind of blob-like sour candy
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(0.8, color);
+  grad.addColorStop(1, '#aa7700');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Sour sugar coating texture
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  for (let i = 0; i < 12; i++) {
+    const angle = (Math.PI * 2 / 12) * i;
+    const x = Math.cos(angle) * r * 0.7;
+    const y = Math.sin(angle) * r * 0.7;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.15, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Edge
+  ctx.strokeStyle = '#aa6600';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+function drawMarshmallow(ctx, size) {
+  const r = size * 0.42;
+
+  // Marshmallow body with gradient
+  const grad = ctx.createRadialGradient(-r * 0.4, -r * 0.4, 0, 0, 0, r);
+  grad.addColorStop(0, '#fffef9');
+  grad.addColorStop(0.7, '#fef8f0');
+  grad.addColorStop(1, '#f0e8d8');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Marshmallow texture - bumpy surface
+  ctx.fillStyle = 'rgba(200,200,200,0.3)';
+  for (let i = 0; i < 8; i++) {
+    const angle = (Math.PI * 2 / 8) * i;
+    const x = Math.cos(angle) * r * 0.6;
+    const y = Math.sin(angle) * r * 0.6;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Subtle shadows for texture
+  ctx.fillStyle = 'rgba(100,100,100,0.15)';
+  ctx.beginPath();
+  ctx.arc(0, r * 0.3, r * 0.3, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Light highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.7)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.strokeStyle = '#e0d8c8';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+function drawToffee(ctx, size) {
+  const w = size * 0.38, h = size * 0.45;
+
+  // Toffee body with gradient
+  const grad = ctx.createLinearGradient(-w, -h, w, h);
+  grad.addColorStop(0, '#d4a574');
+  grad.addColorStop(0.5, '#c9915c');
+  grad.addColorStop(1, '#8b6914');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, w, h, Math.PI * 0.1, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Toffee wrapper lines
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(-w * 0.7, -h);
+  ctx.quadraticCurveTo(0, -h * 0.3, w * 0.7, -h);
+  ctx.stroke();
+
+  // Shiny top surface
+  ctx.fillStyle = 'rgba(255,200,100,0.5)';
+  ctx.beginPath();
+  ctx.ellipse(-w * 0.3, -h * 0.6, w * 0.6, h * 0.4, Math.PI * 0.1, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Twisted wrapper detail
+  ctx.strokeStyle = 'rgba(139,105,20,0.6)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(-w, -h * 0.2);
+  ctx.quadraticCurveTo(0, h * 0.3, w, -h * 0.2);
+  ctx.stroke();
+
+  // Edge shadow
+  ctx.strokeStyle = '#6b5510';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, w, h, Math.PI * 0.1, 0, Math.PI * 2);
+  ctx.stroke();
 }
 
 // ── State ──────────────────────────────────────────────────────────────────
