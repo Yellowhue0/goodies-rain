@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sweet Rain 🍬 — Click to Eat!</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<!-- UI Overlay -->
+<div id="ui">
+  <div id="ui-left">
+    <button class="btn btn-rain" id="btnRain">🌧️ Rain!</button>
+    <button class="btn btn-stop" id="btnStop" disabled>⛔ Stop</button>
+  </div>
+
+  <div id="ui-filters">
+    <span class="filter-label">Filter:</span>
+    <button class="sweet-toggle active" data-sweet="lolly"    title="Lollipop">🍭</button>
+    <button class="sweet-toggle active" data-sweet="candy"    title="Candy">🍬</button>
+    <button class="sweet-toggle active" data-sweet="choc"     title="Chocolate">🍫</button>
+    <button class="sweet-toggle active" data-sweet="icecream" title="Ice Cream">🍦</button>
+    <button class="sweet-toggle active" data-sweet="donut"    title="Donut">🍩</button>
+    <button class="sweet-toggle active" data-sweet="cake"     title="Cake">🎂</button>
+  </div>
+
+  <div id="score-box">🪙 <span id="scoreVal">0</span></div>
+</div>
+
+<!-- Combo indicator -->
+<div id="combo"></div>
+
+<!-- Big flash message -->
+<div id="msg"></div>
+
+<!-- Instructions overlay (shown on first load) -->
+<div id="instructions">
+  <div id="instructions-box">
+    <h1>🍬 Sweet Rain</h1>
+    <p>Click <strong>Rain!</strong> to start the sweet storm.</p>
+    <p>🖱️ Move your mouth cursor to the sweets and <strong>click / tap</strong> to eat them.</p>
+    <p>Earn <span style="color:gold">🪙 coins</span> for every sweet you eat!</p>
+    <p>Hit combos for <span style="color:#ff4">bonus points</span>.</p>
+    <p>Toggle which sweets fall using the emoji buttons.</p>
+    <button id="btnStart" class="btn btn-rain" style="margin-top:1rem;font-size:18px;padding:12px 32px;">Let's Go! 🚀</button>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>

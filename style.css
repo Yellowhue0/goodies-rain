@@ -1,0 +1,194 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: #0e0022;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Canvas ── */
+#gameCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  cursor: none;
+  touch-action: none;
+}
+
+/* ── Top UI bar ── */
+#ui {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 20;
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  background: linear-gradient(to bottom, rgba(10,0,30,0.9) 60%, transparent);
+  backdrop-filter: blur(4px);
+}
+
+#ui-left {
+  display: flex;
+  gap: 8px;
+}
+
+#ui-filters {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.filter-label {
+  color: rgba(255,255,255,0.45);
+  font-size: 12px;
+  margin-right: 2px;
+}
+
+/* ── Buttons ── */
+.btn {
+  padding: 8px 18px;
+  border-radius: 20px;
+  border: 2px solid transparent;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.1s, box-shadow 0.1s;
+  outline: none;
+}
+.btn:active { transform: scale(0.93); }
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
+
+.btn-rain {
+  background: linear-gradient(135deg, #ff6bc1, #c44fff);
+  border-color: #ff3da0;
+  color: #fff;
+  box-shadow: 0 2px 12px rgba(255,80,180,0.5);
+}
+.btn-rain:hover { box-shadow: 0 4px 20px rgba(255,80,180,0.7); }
+
+.btn-stop {
+  background: linear-gradient(135deg, #ff4444, #aa0000);
+  border-color: #cc0000;
+  color: #fff;
+}
+.btn-stop:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── Sweet filter toggles ── */
+.sweet-toggle {
+  padding: 5px 11px;
+  border-radius: 16px;
+  border: 2px solid rgba(255,255,255,0.2);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(255,255,255,0.07);
+  transition: all 0.15s;
+  outline: none;
+}
+.sweet-toggle.active {
+  background: rgba(255,255,255,0.22);
+  border-color: rgba(255,255,255,0.7);
+  transform: scale(1.12);
+}
+.sweet-toggle:focus-visible { box-shadow: 0 0 0 3px rgba(255,255,255,0.4); }
+
+/* ── Score box ── */
+#score-box {
+  margin-left: auto;
+  background: rgba(255,215,0,0.14);
+  border: 2px solid gold;
+  border-radius: 20px;
+  padding: 6px 16px;
+  color: gold;
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  min-width: 90px;
+  text-align: center;
+}
+
+/* ── Combo display ── */
+#combo {
+  position: fixed;
+  top: 68px; right: 16px;
+  z-index: 25;
+  font-size: 24px;
+  font-weight: 900;
+  color: #ffe066;
+  text-shadow: 0 0 12px #ff8800, 0 0 24px #ff4400;
+  opacity: 0;
+  transition: opacity 0.25s;
+  pointer-events: none;
+}
+
+/* ── Flash message ── */
+#msg {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 30;
+  font-size: 52px;
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 0 24px #ff6bc1, 0 0 48px #c44fff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* ── Instructions overlay ── */
+#instructions {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(10, 0, 30, 0.88);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(6px);
+}
+
+#instructions-box {
+  background: rgba(30, 0, 60, 0.95);
+  border: 2px solid rgba(180, 80, 255, 0.5);
+  border-radius: 20px;
+  padding: 2.5rem 3rem;
+  max-width: 440px;
+  width: 90%;
+  text-align: center;
+  color: #fff;
+  box-shadow: 0 0 60px rgba(150, 50, 255, 0.4);
+}
+
+#instructions-box h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(135deg, #ff6bc1, #c44fff, #ffd700);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+#instructions-box p {
+  margin: 0.55rem 0;
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.6;
+}
+
+/* ── Mobile tweaks ── */
+@media (max-width: 500px) {
+  #ui { padding: 8px 10px; gap: 6px; }
+  .btn { font-size: 13px; padding: 7px 13px; }
+  .sweet-toggle { font-size: 17px; padding: 4px 8px; }
+  #score-box { font-size: 14px; padding: 5px 12px; }
+  #instructions-box { padding: 1.8rem 1.4rem; }
+  #instructions-box h1 { font-size: 1.8rem; }
+}
