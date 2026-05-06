@@ -14,7 +14,7 @@ A fun browser game where it rains goodies and you have to eat them by clicking o
 
 ## 🍭 Goodie Types
 
-Toggle which goodies fall using the emoji buttons in the top bar:
+Pick and mix style candies! Toggle which goodies fall using the emoji buttons in the top bar:
 
 | Goodie | Points |
 |--------|--------|
@@ -23,7 +23,7 @@ Toggle which goodies fall using the emoji buttons in the top bar:
 | 🍫 Chocolate | 2 coins |
 | 🍦 Ice Cream | 3 coins |
 | 🍩 Donut | 2 coins |
-| 🎂 Cake | 5 coins |
+| 🐻 Gummy Bear | 2 coins |
 
 ## ⚡ Combo System
 

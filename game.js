@@ -12,7 +12,7 @@ const SWEETS = {
   choc:     { baseSize: 30, points: 2, draw: drawChocolate },
   icecream: { baseSize: 34, points: 3, draw: drawIceCream },
   donut:    { baseSize: 32, points: 2, draw: drawDonut },
-  cake:     { baseSize: 38, points: 5, draw: drawCake },
+  gummy:    { baseSize: 28, points: 2, draw: drawGummyBear },
 };
 
 // ── Sweet drawing functions ────────────────────────────────────────────────
@@ -207,60 +207,78 @@ function drawDonut(ctx, size) {
   ctx.stroke();
 }
 
-function drawCake(ctx, size) {
-  const w = size * 0.4, h = size * 0.5;
+function drawGummyBear(ctx, size) {
+  const r = size * 0.4;
+  const colors = ['#ff1493', '#ffd700', '#00d4ff', '#00ff00', '#ff6347', '#9932cc'];
+  const colorIndex = Math.floor(Math.random() * colors.length);
+  const color = colors[colorIndex];
 
-  // Cake body with gradient
-  const grad = ctx.createLinearGradient(0, -h, 0, h);
-  grad.addColorStop(0, '#8b4513');
-  grad.addColorStop(0.5, '#6b3410');
-  grad.addColorStop(1, '#4a2208');
+  // Get darker shade for edge
+  const darker = {
+    '#ff1493': '#c70d6f',
+    '#ffd700': '#daa500',
+    '#00d4ff': '#0099cc',
+    '#00ff00': '#00cc00',
+    '#ff6347': '#cc3d28',
+    '#9932cc': '#7a2a9f'
+  };
+
+  // Gummy bear body with radial gradient
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(0.7, color);
+  grad.addColorStop(1, darker[color]);
   ctx.fillStyle = grad;
-  ctx.fillRect(-w, 0, w * 2, h);
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
 
-  // Cake edge
-  ctx.strokeStyle = '#3a1808';
+  // Glossy highlight
+  ctx.fillStyle = 'rgba(255,255,255,0.6)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.35, -r * 0.35, r * 0.28, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Ears (gummy bear characteristic)
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(-r * 0.6, -r * 0.7, r * 0.35, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = darker[color];
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(r * 0.6, -r * 0.7, r * 0.35, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = darker[color];
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  // Head edge shadow
+  ctx.strokeStyle = darker[color];
   ctx.lineWidth = 2;
-  ctx.strokeRect(-w, 0, w * 2, h);
-
-  // Left frosting swirl
-  const frosting1 = ctx.createRadialGradient(-w * 0.6, -h * 0.6, 0, -w * 0.5, -h * 0.4, size * 0.3);
-  frosting1.addColorStop(0, '#fff5ee');
-  frosting1.addColorStop(0.7, '#ffebdb');
-  frosting1.addColorStop(1, '#ffe4d0');
-  ctx.fillStyle = frosting1;
   ctx.beginPath();
-  ctx.arc(-w * 0.5, -h * 0.5, size * 0.28, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.strokeStyle = '#f0d9c8';
-  ctx.lineWidth = 1;
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
   ctx.stroke();
 
-  // Right frosting swirl
-  const frosting2 = ctx.createRadialGradient(w * 0.6, -h * 0.6, 0, w * 0.5, -h * 0.4, size * 0.3);
-  frosting2.addColorStop(0, '#ff1493');
-  frosting2.addColorStop(0.7, '#ff69b4');
-  frosting2.addColorStop(1, '#ff85c1');
-  ctx.fillStyle = frosting2;
+  // Eyes (tiny dots)
+  ctx.fillStyle = '#1a1a1a';
   ctx.beginPath();
-  ctx.arc(w * 0.5, -h * 0.5, size * 0.28, 0, Math.PI * 2);
+  ctx.arc(-r * 0.25, -r * 0.2, r * 0.1, 0, Math.PI * 2);
   ctx.fill();
-  ctx.strokeStyle = '#ff4a9e';
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  // Candle
-  ctx.fillStyle = '#e8d4a0';
-  ctx.fillRect(-w * 0.12, -h * 1.3, w * 0.24, h * 0.8);
-
-  // Flame
-  ctx.fillStyle = '#ffff00';
   ctx.beginPath();
-  ctx.ellipse(0, -h * 1.5, w * 0.15, h * 0.25, 0, 0, Math.PI * 2);
+  ctx.arc(r * 0.25, -r * 0.2, r * 0.1, 0, Math.PI * 2);
   ctx.fill();
-  ctx.fillStyle = '#ff6347';
+
+  // Eye highlights
+  ctx.fillStyle = 'rgba(255,255,255,0.8)';
   ctx.beginPath();
-  ctx.ellipse(0, -h * 1.45, w * 0.08, h * 0.2, 0, 0, Math.PI * 2);
+  ctx.arc(-r * 0.2, -r * 0.25, r * 0.04, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(r * 0.3, -r * 0.25, r * 0.04, 0, Math.PI * 2);
   ctx.fill();
 }
 
