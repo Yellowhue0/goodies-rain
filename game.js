@@ -7,16 +7,41 @@
 
 // ── Sweet definitions ──────────────────────────────────────────────────────
 const SWEETS = {
-  lolly:      { baseSize: 32, points: 1, draw: drawLolly },
-  candy:      { baseSize: 28, points: 1, draw: drawCandy },
-  choc:       { baseSize: 30, points: 2, draw: drawChocolate },
-  icecream:   { baseSize: 34, points: 3, draw: drawIceCream },
-  donut:      { baseSize: 32, points: 2, draw: drawDonut },
-  gummy:      { baseSize: 28, points: 2, draw: drawGummyBear },
-  licorice:   { baseSize: 36, points: 1, draw: drawLicorice },
-  sour:       { baseSize: 26, points: 2, draw: drawSourGummy },
-  marshmallow:{ baseSize: 30, points: 2, draw: drawMarshmallow },
-  toffee:     { baseSize: 28, points: 3, draw: drawToffee },
+  lolly:        { baseSize: 32, points: 1, draw: drawLolly },
+  candy:        { baseSize: 28, points: 1, draw: drawCandy },
+  choc:         { baseSize: 30, points: 2, draw: drawChocolate },
+  icecream:     { baseSize: 34, points: 3, draw: drawIceCream },
+  donut:        { baseSize: 32, points: 2, draw: drawDonut },
+  gummy:        { baseSize: 28, points: 2, draw: drawGummyBear },
+  licorice:     { baseSize: 36, points: 1, draw: drawLicorice },
+  sour:         { baseSize: 26, points: 2, draw: drawSourGummy },
+  marshmallow:  { baseSize: 30, points: 2, draw: drawMarshmallow },
+  toffee:       { baseSize: 28, points: 3, draw: drawToffee },
+  fruitgum:     { baseSize: 24, points: 1, draw: drawFruitGum },
+  colabot:      { baseSize: 22, points: 1, draw: drawColaBottle },
+  cherrystrip:  { baseSize: 30, points: 1, draw: drawCherryStrip },
+  berrygum:     { baseSize: 25, points: 1, draw: drawBerryGum },
+  saltcaramel:  { baseSize: 26, points: 3, draw: drawSaltCaramel },
+  darkchoc:     { baseSize: 28, points: 2, draw: drawDarkChocolate },
+  whitechoc:    { baseSize: 28, points: 2, draw: drawWhiteChocolate },
+  peppermint:   { baseSize: 24, points: 1, draw: drawPeppermint },
+  haribo:       { baseSize: 26, points: 2, draw: drawHaribo },
+  salixtw:      { baseSize: 32, points: 1, draw: drawSalixTwist },
+  butterscotch: { baseSize: 26, points: 2, draw: drawButterscotch },
+  nougat:       { baseSize: 28, points: 2, draw: drawNougat },
+  praline:      { baseSize: 30, points: 3, draw: drawPraline },
+  fizzy:        { baseSize: 24, points: 2, draw: drawFizzy },
+  strawberry:   { baseSize: 26, points: 1, draw: drawStrawberry },
+  raspberry:    { baseSize: 24, points: 1, draw: drawRaspberry },
+  lemon:        { baseSize: 24, points: 1, draw: drawLemon },
+  orange:       { baseSize: 26, points: 1, draw: drawOrange },
+  watermelon:   { baseSize: 28, points: 1, draw: drawWatermelon },
+  grape:        { baseSize: 24, points: 1, draw: drawGrape },
+  mango:        { baseSize: 25, points: 1, draw: drawMango },
+  pineapple:    { baseSize: 26, points: 1, draw: drawPineapple },
+  bubblegum:    { baseSize: 28, points: 2, draw: drawBubbleGum },
+  softcandy:    { baseSize: 26, points: 1, draw: drawSoftCandy },
+  sugarcrystal: { baseSize: 22, points: 1, draw: drawSugarCrystal },
 };
 
 // ── Sweet drawing functions ────────────────────────────────────────────────
@@ -430,6 +455,429 @@ function drawToffee(ctx, size) {
   ctx.lineWidth = 2;
   ctx.beginPath();
   ctx.ellipse(0, 0, w, h, Math.PI * 0.1, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+function drawFruitGum(ctx, size) {
+  const r = size * 0.35;
+  const colors = ['#ff4444', '#ff8800', '#ffcc00', '#00cc00', '#0088ff', '#ff00ff'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(1, '#aa4400');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.2, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawColaBottle(ctx, size) {
+  const h = size * 0.55, w = size * 0.3;
+  ctx.fillStyle = '#8b4513';
+  ctx.beginPath();
+  ctx.ellipse(0, -h * 0.3, w * 0.8, w, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillRect(-w * 0.6, -h * 0.3, w * 1.2, h * 0.8);
+  ctx.fillStyle = 'rgba(255,255,255,0.4)';
+  ctx.fillRect(-w * 0.5, -h * 0.2, w * 0.6, h * 0.6);
+}
+
+function drawCherryStrip(ctx, size) {
+  const w = size * 0.3, h = size * 0.6;
+  ctx.fillStyle = '#c41e3a';
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+  ctx.fillStyle = 'rgba(255,100,100,0.5)';
+  for (let i = 0; i < 5; i++) {
+    ctx.fillRect(-w + 5, -h + 5 + i * 15, w * 1.6, 3);
+  }
+}
+
+function drawBerryGum(ctx, size) {
+  const r = size * 0.38;
+  const berries = [
+    { c: '#6b2f47', name: 'dark' },
+    { c: '#8b3a62', name: 'purple' }
+  ];
+  const berry = berries[Math.floor(Math.random() * berries.length)];
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, berry.c);
+  grad.addColorStop(1, '#4a1f2e');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(200,100,150,0.4)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawSaltCaramel(ctx, size) {
+  const r = size * 0.4;
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#e6c200');
+  grad.addColorStop(0.6, '#d4a820');
+  grad.addColorStop(1, '#8b6914');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.3)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#fff';
+  for (let i = 0; i < 4; i++) ctx.fillRect(-r * 0.3 + i * 5, r * 0.2, 2, 2);
+}
+
+function drawDarkChocolate(ctx, size) {
+  const w = size * 0.45, h = size * 0.55;
+  const grad = ctx.createLinearGradient(-w, -h, w, h);
+  grad.addColorStop(0, '#4a3020');
+  grad.addColorStop(1, '#2a1810');
+  ctx.fillStyle = grad;
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+  ctx.strokeStyle = '#1a0a00';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(-w, -h, w * 2, h * 2);
+  ctx.fillStyle = 'rgba(100,50,30,0.5)';
+  for (let i = 0; i < 6; i++) ctx.fillRect(-w + 3 + i * 6, -h + 3, 4, 3);
+}
+
+function drawWhiteChocolate(ctx, size) {
+  const w = size * 0.45, h = size * 0.55;
+  const grad = ctx.createLinearGradient(-w, -h, w, h);
+  grad.addColorStop(0, '#fffef9');
+  grad.addColorStop(1, '#f5f0e8');
+  ctx.fillStyle = grad;
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+  ctx.strokeStyle = '#e8e0d0';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(-w, -h, w * 2, h * 2);
+}
+
+function drawPeppermint(ctx, size) {
+  const r = size * 0.4;
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#fff');
+  grad.addColorStop(0.7, '#f0f0f0');
+  grad.addColorStop(1, '#cc0000');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI * 2 / 6) * i;
+    ctx.strokeStyle = '#cc0000';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(Math.cos(angle) * r * 0.3, Math.sin(angle) * r * 0.3);
+    ctx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+    ctx.stroke();
+  }
+}
+
+function drawHaribo(ctx, size) {
+  const r = size * 0.35;
+  const color = ['#ff1493', '#ffd700', '#ff6347'][Math.floor(Math.random() * 3)];
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(1, '#8b4513');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.25, -r * 0.25, r * 0.2, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawSalixTwist(ctx, size) {
+  const h = size * 0.7, w = size * 0.25;
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath();
+  ctx.ellipse(0, 0, w, h, Math.PI * 0.15, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ff1493';
+  ctx.beginPath();
+  ctx.ellipse(0, 0, w * 0.5, h * 0.9, Math.PI * 0.15, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawButterscotch(ctx, size) {
+  const r = size * 0.38;
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, '#f5a742');
+  grad.addColorStop(1, '#c9915c');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,200,100,0.6)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawNougat(ctx, size) {
+  const w = size * 0.35, h = size * 0.45;
+  ctx.fillStyle = '#f5deb3';
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+  ctx.fillStyle = '#d4a574';
+  for (let i = 0; i < 6; i++) {
+    ctx.fillRect(-w + 2 + i * 4, -h + 2, 2, h * 1.8);
+  }
+}
+
+function drawPraline(ctx, size) {
+  const r = size * 0.42;
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#8b4513');
+  grad.addColorStop(0.6, '#6b3410');
+  grad.addColorStop(1, '#4a2208');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#d4a574';
+  for (let i = 0; i < 8; i++) {
+    const angle = (Math.PI * 2 / 8) * i;
+    const x = Math.cos(angle) * r * 0.6;
+    const y = Math.sin(angle) * r * 0.6;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.15, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawFizzy(ctx, size) {
+  const r = size * 0.36;
+  const colors = ['#ff6600', '#ffff00', '#00ffff', '#ff00ff'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(1, '#aa5500');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  for (let i = 0; i < 12; i++) {
+    const angle = (Math.PI * 2 / 12) * i;
+    const x = Math.cos(angle) * r * 0.5;
+    const y = Math.sin(angle) * r * 0.5;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.08, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawStrawberry(ctx, size) {
+  const r = size * 0.4;
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff4444');
+  grad.addColorStop(1, '#cc0000');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ffff00';
+  for (let i = 0; i < 8; i++) {
+    const angle = (Math.PI * 2 / 8) * i;
+    ctx.fillRect(Math.cos(angle) * r * 0.5 - 1, Math.sin(angle) * r * 0.5 - 1, 2, 2);
+  }
+  ctx.fillStyle = '#228822';
+  ctx.beginPath();
+  ctx.arc(0, -r * 0.6, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawRaspberry(ctx, size) {
+  const r = size * 0.38;
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff69b4');
+  grad.addColorStop(1, '#cc0066');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,200,200,0.4)';
+  for (let i = 0; i < 9; i++) {
+    const angle = (Math.PI * 2 / 9) * i;
+    const x = Math.cos(angle) * r * 0.6;
+    const y = Math.sin(angle) * r * 0.6;
+    ctx.beginPath();
+    ctx.arc(x, y, r * 0.18, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawLemon(ctx, size) {
+  const r = size * 0.38;
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, '#ffff00');
+  grad.addColorStop(1, '#cccc00');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,100,0.5)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.2, -r * 0.2, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawOrange(ctx, size) {
+  const r = size * 0.4;
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff9900');
+  grad.addColorStop(1, '#cc6600');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,150,0,0.3)';
+  for (let i = 0; i < 6; i++) {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(Math.cos((Math.PI * 2 / 6) * i) * r, Math.sin((Math.PI * 2 / 6) * i) * r);
+    ctx.stroke();
+  }
+}
+
+function drawWatermelon(ctx, size) {
+  const r = size * 0.4;
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff3366');
+  grad.addColorStop(1, '#cc0033');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#00aa00';
+  ctx.beginPath();
+  ctx.arc(0, 0, r * 0.7, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#000';
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI * 2 / 6) * i;
+    ctx.beginPath();
+    ctx.arc(Math.cos(angle) * r * 0.3, Math.sin(angle) * r * 0.3, 2, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawGrape(ctx, size) {
+  const r = size * 0.35;
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, '#9932cc');
+  grad.addColorStop(1, '#660099');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(200,100,200,0.4)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.2, -r * 0.2, r * 0.3, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawMango(ctx, size) {
+  const w = size * 0.35, h = size * 0.42;
+  const grad = ctx.createLinearGradient(-w, -h, w, h);
+  grad.addColorStop(0, '#ffa500');
+  grad.addColorStop(0.5, '#ff8c00');
+  grad.addColorStop(1, '#ff6347');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,200,100,0.5)';
+  ctx.beginPath();
+  ctx.ellipse(-w * 0.3, -h * 0.3, w * 0.4, h * 0.3, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawPineapple(ctx, size) {
+  const r = size * 0.38;
+  const grad = ctx.createRadialGradient(-r * 0.2, -r * 0.2, 0, 0, 0, r);
+  grad.addColorStop(0, '#ffcc00');
+  grad.addColorStop(1, '#ff9900');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ffff99';
+  for (let i = 0; i < 6; i++) {
+    for (let j = 0; j < 5; j++) {
+      ctx.fillRect(-r + 5 + i * 5, -r + 4 + j * 6, 3, 3);
+    }
+  }
+  ctx.fillStyle = '#228822';
+  ctx.beginPath();
+  ctx.ellipse(0, -r * 0.7, r * 0.2, r * 0.4, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawBubbleGum(ctx, size) {
+  const r = size * 0.42;
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#ff69b4');
+  grad.addColorStop(0.7, '#ff1493');
+  grad.addColorStop(1, '#cc0a70');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,200,220,0.5)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#aa0a50';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.stroke();
+}
+
+function drawSoftCandy(ctx, size) {
+  const r = size * 0.38;
+  const colors = ['#ff4466', '#ffaa44', '#44ff88', '#4488ff', '#ff44ff'];
+  const color = colors[Math.floor(Math.random() * colors.length)];
+  const grad = ctx.createRadialGradient(-r * 0.25, -r * 0.25, 0, 0, 0, r);
+  grad.addColorStop(0, color);
+  grad.addColorStop(1, '#884422');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = 'rgba(255,255,200,0.4)';
+  ctx.beginPath();
+  ctx.arc(-r * 0.3, -r * 0.3, r * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawSugarCrystal(ctx, size) {
+  const r = size * 0.32;
+  const grad = ctx.createRadialGradient(-r * 0.3, -r * 0.3, 0, 0, 0, r);
+  grad.addColorStop(0, '#fff');
+  grad.addColorStop(1, '#ddd');
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.moveTo(0, -r);
+  ctx.lineTo(r * 0.7, -r * 0.3);
+  ctx.lineTo(r * 0.7, r * 0.7);
+  ctx.lineTo(0, r);
+  ctx.lineTo(-r * 0.7, r * 0.7);
+  ctx.lineTo(-r * 0.7, -r * 0.3);
+  ctx.fill();
+  ctx.strokeStyle = '#aaa';
+  ctx.lineWidth = 1;
   ctx.stroke();
 }
 

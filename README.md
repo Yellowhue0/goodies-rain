@@ -14,20 +14,57 @@ A fun browser game where it rains goodies and you have to eat them by clicking o
 
 ## 🍭 Goodie Types
 
-A full range of Swedish pick and mix candies! Toggle which goodies fall using the buttons in the top bar:
+An **ENORMOUS** range of 35+ Swedish pick and mix candies! Toggle which goodies fall using the buttons in the top bar. Includes classics, fruit flavors, chocolate varieties, and more:
 
-| Goodie | Points |
+| Classic Sweets | Points |
 |--------|--------|
-| 🍭 Lollipop | 1 coin |
-| 🍬 Hard Candy | 1 coin |
-| 🍫 Chocolate | 2 coins |
-| 🍦 Ice Cream | 3 coins |
-| 🍩 Donut | 2 coins |
-| 🐻 Gummy Bear | 2 coins |
-| ⬛ Licorice | 1 coin |
-| ⚡ Sour Gummy | 2 coins |
-| ☁️ Marshmallow | 2 coins |
-| 🟫 Toffee | 3 coins |
+| 🍭 Lollipop | 1 |
+| 🍬 Hard Candy | 1 |
+| 🍫 Chocolate | 2 |
+| 🍦 Ice Cream | 3 |
+| 🍩 Donut | 2 |
+| 🐻 Gummy Bear | 2 |
+
+| Swedish Favorites | Points |
+|--------|--------|
+| ⬛ Licorice | 1 |
+| ⚡ Sour Gummy | 2 |
+| ☁️ Marshmallow | 2 |
+| 🟫 Toffee | 3 |
+| 🟢 Fruit Gum | 1 |
+| 🍷 Cola Bottle | 1 |
+| 🔴 Cherry Strip | 1 |
+| 🟣 Berry Gum | 1 |
+
+| Premium Sweets | Points |
+|--------|--------|
+| 🍯 Salt Caramel | 3 |
+| ⬛🍫 Dark Chocolate | 2 |
+| ⚪🍫 White Chocolate | 2 |
+| 🍃 Peppermint | 1 |
+| 👻 Haribo | 2 |
+| 🌀 Salix Twist | 1 |
+| 🟡 Butterscotch | 2 |
+| 🟨 Nougat | 2 |
+| 🤎 Praline | 3 |
+| ✨ Fizzy | 2 |
+
+| Fruit Flavors | Points |
+|--------|--------|
+| 🍓 Strawberry | 1 |
+| 🫐 Raspberry | 1 |
+| 🍋 Lemon | 1 |
+| 🍊 Orange | 1 |
+| 🍉 Watermelon | 1 |
+| 🍇 Grape | 1 |
+| 🥭 Mango | 1 |
+| 🍍 Pineapple | 1 |
+
+| Special Treats | Points |
+|--------|--------|
+| 💗 Bubble Gum | 2 |
+| 🧁 Soft Candy | 1 |
+| 💎 Sugar Crystal | 1 |
 
 ## ⚡ Combo System
 
