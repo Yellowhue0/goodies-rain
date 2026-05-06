@@ -7,13 +7,116 @@
 
 // ── Sweet definitions ──────────────────────────────────────────────────────
 const SWEETS = {
-  lolly:    { emoji: '🍭', baseSize: 32, points: 1 },
-  candy:    { emoji: '🍬', baseSize: 28, points: 1 },
-  choc:     { emoji: '🍫', baseSize: 30, points: 2 },
-  icecream: { emoji: '🍦', baseSize: 34, points: 3 },
-  donut:    { emoji: '🍩', baseSize: 32, points: 2 },
-  cake:     { emoji: '🎂', baseSize: 38, points: 5 },
+  lolly:    { baseSize: 32, points: 1, draw: drawLolly },
+  candy:    { baseSize: 28, points: 1, draw: drawCandy },
+  choc:     { baseSize: 30, points: 2, draw: drawChocolate },
+  icecream: { baseSize: 34, points: 3, draw: drawIceCream },
+  donut:    { baseSize: 32, points: 2, draw: drawDonut },
+  cake:     { baseSize: 38, points: 5, draw: drawCake },
 };
+
+// ── Sweet drawing functions ────────────────────────────────────────────────
+function drawLolly(ctx, size) {
+  const r = size * 0.4;
+  ctx.fillStyle = '#ff1493';
+  ctx.beginPath();
+  ctx.arc(0, 0, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#ff69b4';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  ctx.fillStyle = '#ff69b4';
+  ctx.fillRect(-r * 0.2, r, r * 0.4, r * 1.2);
+}
+
+function drawCandy(ctx, size) {
+  const r = size * 0.35;
+  ctx.fillStyle = '#ffb6c1';
+  ctx.beginPath();
+  ctx.ellipse(0, 0, r * 1.2, r * 0.8, Math.PI * 0.15, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#ff69b4';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,0.5)';
+  ctx.beginPath();
+  ctx.ellipse(-r * 0.5, -r * 0.3, r * 0.4, r * 0.3, 0, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+function drawChocolate(ctx, size) {
+  const w = size * 0.5, h = size * 0.6;
+  ctx.fillStyle = '#6b4423';
+  ctx.fillRect(-w, -h, w * 2, h * 2);
+  ctx.strokeStyle = '#4a2511';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(-w, -h, w * 2, h * 2);
+  ctx.fillStyle = '#8b5a3c';
+  for (let i = 0; i < 4; i++) {
+    for (let j = 0; j < 3; j++) {
+      ctx.fillRect(-w + 5 + i * 8, -h + 3 + j * 10, 4, 5);
+    }
+  }
+}
+
+function drawIceCream(ctx, size) {
+  const coneH = size * 0.7, r = size * 0.35;
+  ctx.fillStyle = '#cd9557';
+  ctx.beginPath();
+  ctx.moveTo(-r, 0);
+  ctx.lineTo(r, 0);
+  ctx.lineTo(0, coneH);
+  ctx.fill();
+  ctx.strokeStyle = '#8b6914';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+  ctx.fillStyle = '#fff8dc';
+  ctx.beginPath();
+  ctx.arc(0, -r * 0.5, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#f0e68c';
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+}
+
+function drawDonut(ctx, size) {
+  const outer = size * 0.45, inner = size * 0.2;
+  ctx.fillStyle = '#daa520';
+  ctx.beginPath();
+  ctx.arc(0, 0, outer, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#0e0022';
+  ctx.beginPath();
+  ctx.arc(0, 0, inner, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ff6347';
+  for (let i = 0; i < 8; i++) {
+    const angle = (Math.PI * 2 / 8) * i;
+    const x = Math.cos(angle) * (outer + inner) * 0.5;
+    const y = Math.sin(angle) * (outer + inner) * 0.5;
+    ctx.fillRect(x - 2, y - 2, 4, 4);
+  }
+}
+
+function drawCake(ctx, size) {
+  const w = size * 0.4, h = size * 0.5;
+  ctx.fillStyle = '#d2691e';
+  ctx.fillRect(-w, 0, w * 2, h);
+  ctx.fillStyle = '#fff5ee';
+  ctx.beginPath();
+  ctx.arc(-w * 0.5, -h * 0.5, size * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ff69b4';
+  ctx.beginPath();
+  ctx.arc(w * 0.5, -h * 0.5, size * 0.25, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#ffff00';
+  ctx.beginPath();
+  ctx.moveTo(0, -h * 1.2);
+  ctx.lineTo(-h * 0.2, -h * 0.8);
+  ctx.lineTo(h * 0.2, -h * 0.8);
+  ctx.fill();
+}
 
 // ── State ──────────────────────────────────────────────────────────────────
 const canvas  = document.getElementById('gameCanvas');
@@ -37,7 +140,7 @@ let mouthOpen      = 0;   // 0–1 animation value
 let activeSweets   = new Set(Object.keys(SWEETS));
 
 // Starfield
-const stars = Array.from({ length: 100 }, () => ({
+const stars = Array.from({ length: 60 }, () => ({
   x: Math.random(),
   y: Math.random(),
   r: rand(0.5, 2.2),
@@ -62,7 +165,6 @@ function spawnDrop() {
   const s   = SWEETS[key];
   drops.push({
     key,
-    emoji:  s.emoji,
     size:   s.baseSize * rand(0.75, 1.5),
     points: s.points,
     x:      rand(20, W - 20),
@@ -95,7 +197,7 @@ function eatAt(cx, cy) {
     score += pts;
     scoreEl.textContent = score;
 
-    spawnParticles(d.x, d.y, d.emoji);
+    spawnParticles(d.x, d.y, d.key);
 
     const label = multiplier > 1
       ? `+${pts} ×${combo}${combo >= 10 ? '🔥' : '⚡'}`
@@ -121,16 +223,16 @@ function showCombo() {
 }
 
 // ── Particles ─────────────────────────────────────────────────────────────
-function spawnParticles(x, y, emoji) {
-  for (let i = 0; i < 10; i++) {
-    const angle = (Math.PI * 2 / 10) * i + rand(-0.25, 0.25);
+function spawnParticles(x, y, key) {
+  for (let i = 0; i < 6; i++) {
+    const angle = (Math.PI * 2 / 6) * i + rand(-0.25, 0.25);
     const speed = rand(2.5, 7);
     particles.push({
-      x, y, emoji,
+      x, y, key,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
       life: 1,
-      size: rand(14, 24),
+      size: rand(12, 20),
     });
   }
 }
@@ -229,10 +331,7 @@ function loop() {
     ctx.globalAlpha = d.opacity;
     ctx.translate(d.x, d.y);
     ctx.rotate(d.rot);
-    ctx.font = `${Math.round(d.size)}px serif`;
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(d.emoji, 0, 0);
+    SWEETS[d.key].draw(ctx, d.size);
     ctx.restore();
   });
 
@@ -244,11 +343,9 @@ function loop() {
     p.vy   += 0.3;
     p.life -= 0.04;
     ctx.save();
-    ctx.globalAlpha  = p.life;
-    ctx.font         = `${Math.round(p.size)}px serif`;
-    ctx.textAlign    = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(p.emoji, p.x, p.y);
+    ctx.globalAlpha = p.life;
+    ctx.translate(p.x, p.y);
+    SWEETS[p.key].draw(ctx, p.size);
     ctx.restore();
   });
 
@@ -308,8 +405,8 @@ function startRain() {
   raining = true;
   document.getElementById('btnStop').disabled = false;
   spawnInterval = setInterval(() => {
-    for (let i = 0; i < 3; i++) spawnDrop();
-  }, 280);
+    for (let i = 0; i < 2; i++) spawnDrop();
+  }, 320);
 }
 
 function stopRain() {
