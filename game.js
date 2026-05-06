@@ -124,6 +124,8 @@ const ctx     = canvas.getContext('2d');
 const scoreEl = document.getElementById('scoreVal');
 const comboEl = document.getElementById('combo');
 const msgEl   = document.getElementById('msg');
+const levelEl = document.getElementById('levelVal');
+const levelupEl = document.getElementById('levelup');
 
 let W, H;
 let drops          = [];
@@ -138,6 +140,8 @@ let mouseX         = -300;
 let mouseY         = -300;
 let mouthOpen      = 0;   // 0–1 animation value
 let activeSweets   = new Set(Object.keys(SWEETS));
+let level          = 1;
+let lastLevel      = 1;
 
 // Starfield
 const stars = Array.from({ length: 60 }, () => ({
@@ -149,6 +153,25 @@ const stars = Array.from({ length: 60 }, () => ({
 
 // ── Helpers ───────────────────────────────────────────────────────────────
 function rand(a, b) { return a + Math.random() * (b - a); }
+
+function calculateLevel(pts) {
+  if (pts < 100) return 1;
+  if (pts < 250) return 2;
+  if (pts < 500) return 3;
+  if (pts < 800) return 4;
+  return 5;
+}
+
+function getSpawnConfig(lvl) {
+  const configs = {
+    1: { interval: 320, count: 2 },
+    2: { interval: 280, count: 2 },
+    3: { interval: 240, count: 3 },
+    4: { interval: 200, count: 3 },
+    5: { interval: 160, count: 4 },
+  };
+  return configs[lvl] || configs[5];
+}
 
 function resize() {
   W = canvas.width  = window.innerWidth;
@@ -197,6 +220,14 @@ function eatAt(cx, cy) {
     score += pts;
     scoreEl.textContent = score;
 
+    const newLevel = calculateLevel(score);
+    if (newLevel > level) {
+      level = newLevel;
+      levelEl.textContent = level;
+      showLevelUp();
+      if (raining) updateSpawnRate();
+    }
+
     spawnParticles(d.x, d.y, d.key);
 
     const label = multiplier > 1
@@ -220,6 +251,13 @@ function showCombo() {
   comboEl.style.opacity = 1;
   clearTimeout(comboEl._t);
   comboEl._t = setTimeout(() => { comboEl.style.opacity = 0; }, 900);
+}
+
+function showLevelUp() {
+  levelupEl.textContent = `⭐ LEVEL ${level}!`;
+  levelupEl.style.opacity = 1;
+  clearTimeout(levelupEl._t);
+  levelupEl._t = setTimeout(() => { levelupEl.style.opacity = 0; }, 1200);
 }
 
 // ── Particles ─────────────────────────────────────────────────────────────
@@ -400,19 +438,28 @@ canvas.addEventListener('touchmove', e => {
 document.getElementById('btnRain').addEventListener('click', startRain);
 document.getElementById('btnStop').addEventListener('click', stopRain);
 
+function updateSpawnRate() {
+  if (!raining) return;
+  clearInterval(spawnInterval);
+  const config = getSpawnConfig(level);
+  spawnInterval = setInterval(() => {
+    for (let i = 0; i < config.count; i++) spawnDrop();
+  }, config.interval);
+}
+
 function startRain() {
   if (raining) return;
   raining = true;
   document.getElementById('btnStop').disabled = false;
-  spawnInterval = setInterval(() => {
-    for (let i = 0; i < 2; i++) spawnDrop();
-  }, 320);
+  updateSpawnRate();
 }
 
 function stopRain() {
   raining = false;
-  clearInterval(spawnInterval);
-  spawnInterval = null;
+  if (spawnInterval) {
+    clearInterval(spawnInterval);
+    spawnInterval = null;
+  }
   document.getElementById('btnStop').disabled = true;
 }
 

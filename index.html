@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sweet Rain 🍬 — Click to Eat!</title>
+<title>Goodies Rain 🍬 — Click to Eat!</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,10 +28,14 @@
   </div>
 
   <div id="score-box">🪙 <span id="scoreVal">0</span></div>
+  <div id="level-box">Lvl <span id="levelVal">1</span></div>
 </div>
 
 <!-- Combo indicator -->
 <div id="combo"></div>
+
+<!-- Level up message -->
+<div id="levelup"></div>
 
 <!-- Big flash message -->
 <div id="msg"></div>
@@ -39,12 +43,13 @@
 <!-- Instructions overlay (shown on first load) -->
 <div id="instructions">
   <div id="instructions-box">
-    <h1>🍬 Sweet Rain</h1>
-    <p>Click <strong>Rain!</strong> to start the sweet storm.</p>
-    <p>🖱️ Move your mouth cursor to the sweets and <strong>click / tap</strong> to eat them.</p>
-    <p>Earn <span style="color:gold">🪙 coins</span> for every sweet you eat!</p>
+    <h1>🍬 Goodies Rain</h1>
+    <p>Click <strong>Rain!</strong> to start the goodie storm.</p>
+    <p>🖱️ Move your mouth cursor to the goodies and <strong>click / tap</strong> to eat them.</p>
+    <p>Earn <span style="color:gold">🪙 coins</span> for every goodie you eat!</p>
     <p>Hit combos for <span style="color:#ff4">bonus points</span>.</p>
-    <p>Toggle which sweets fall using the emoji buttons.</p>
+    <p>Reach score milestones to level up and face faster gameplay!</p>
+    <p>Toggle which goodies fall using the emoji buttons.</p>
     <button id="btnStart" class="btn btn-rain" style="margin-top:1rem;font-size:18px;padding:12px 32px;">Let's Go! 🚀</button>
   </div>
 </div>
