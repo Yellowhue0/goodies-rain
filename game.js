@@ -1296,6 +1296,23 @@ function stopRain() {
   document.getElementById('btnStop').disabled = true;
 }
 
+// Filter dropdown toggle
+const filterToggle = document.getElementById('filterToggle');
+const filtersMenu = document.getElementById('ui-filters');
+
+filterToggle.addEventListener('click', () => {
+  filtersMenu.classList.toggle('filters-hidden');
+  filtersMenu.classList.toggle('filters-visible');
+});
+
+// Close filter menu when clicking outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#ui-filters-container')) {
+    filtersMenu.classList.add('filters-hidden');
+    filtersMenu.classList.remove('filters-visible');
+  }
+});
+
 // Sweet filter toggles
 document.querySelectorAll('.sweet-toggle').forEach(btn => {
   btn.addEventListener('click', () => {

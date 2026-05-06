@@ -17,43 +17,47 @@
     <button class="btn btn-stop" id="btnStop" disabled>⛔ Stop</button>
   </div>
 
-  <div id="ui-filters">
-    <span class="filter-label">All Sweets:</span>
-    <button class="sweet-toggle active" data-sweet="lolly"       title="Lollipop">🍭</button>
-    <button class="sweet-toggle active" data-sweet="candy"       title="Hard Candy">🍬</button>
-    <button class="sweet-toggle active" data-sweet="choc"        title="Chocolate">🍫</button>
-    <button class="sweet-toggle active" data-sweet="icecream"    title="Ice Cream">🍦</button>
-    <button class="sweet-toggle active" data-sweet="donut"       title="Donut">🍩</button>
-    <button class="sweet-toggle active" data-sweet="gummy"       title="Gummy Bear">🐻</button>
-    <button class="sweet-toggle active" data-sweet="licorice"    title="Licorice">⬛</button>
-    <button class="sweet-toggle active" data-sweet="sour"        title="Sour Gummy">⚡</button>
-    <button class="sweet-toggle active" data-sweet="marshmallow" title="Marshmallow">☁️</button>
-    <button class="sweet-toggle active" data-sweet="toffee"      title="Toffee">🟫</button>
-    <button class="sweet-toggle active" data-sweet="fruitgum"    title="Fruit Gum">🟢</button>
-    <button class="sweet-toggle active" data-sweet="colabot"     title="Cola Bottle">🍷</button>
-    <button class="sweet-toggle active" data-sweet="cherrystrip" title="Cherry Strip">🔴</button>
-    <button class="sweet-toggle active" data-sweet="berrygum"    title="Berry Gum">🟣</button>
-    <button class="sweet-toggle active" data-sweet="saltcaramel" title="Salt Caramel">🍯</button>
-    <button class="sweet-toggle active" data-sweet="darkchoc"    title="Dark Chocolate">⬛🍫</button>
-    <button class="sweet-toggle active" data-sweet="whitechoc"   title="White Chocolate">⚪🍫</button>
-    <button class="sweet-toggle active" data-sweet="peppermint"  title="Peppermint">🍃</button>
-    <button class="sweet-toggle active" data-sweet="haribo"      title="Haribo">👻</button>
-    <button class="sweet-toggle active" data-sweet="salixtw"     title="Salix Twist">🌀</button>
-    <button class="sweet-toggle active" data-sweet="butterscotch" title="Butterscotch">🟡</button>
-    <button class="sweet-toggle active" data-sweet="nougat"      title="Nougat">🟨</button>
-    <button class="sweet-toggle active" data-sweet="praline"     title="Praline">🤎</button>
-    <button class="sweet-toggle active" data-sweet="fizzy"       title="Fizzy">✨</button>
-    <button class="sweet-toggle active" data-sweet="strawberry"  title="Strawberry">🍓</button>
-    <button class="sweet-toggle active" data-sweet="raspberry"   title="Raspberry">🫐</button>
-    <button class="sweet-toggle active" data-sweet="lemon"       title="Lemon">🍋</button>
-    <button class="sweet-toggle active" data-sweet="orange"      title="Orange">🍊</button>
-    <button class="sweet-toggle active" data-sweet="watermelon"  title="Watermelon">🍉</button>
-    <button class="sweet-toggle active" data-sweet="grape"       title="Grape">🍇</button>
-    <button class="sweet-toggle active" data-sweet="mango"       title="Mango">🥭</button>
-    <button class="sweet-toggle active" data-sweet="pineapple"   title="Pineapple">🍍</button>
-    <button class="sweet-toggle active" data-sweet="bubblegum"   title="Bubble Gum">💗</button>
-    <button class="sweet-toggle active" data-sweet="softcandy"   title="Soft Candy">🧁</button>
-    <button class="sweet-toggle active" data-sweet="sugarcrystal" title="Sugar Crystal">💎</button>
+  <div id="ui-filters-container">
+    <button id="filterToggle" class="btn-filter-toggle">🍬 Filter (35)</button>
+    <div id="ui-filters" class="filters-hidden">
+      <div class="filters-grid">
+        <button class="sweet-toggle active" data-sweet="lolly"       title="Lollipop">🍭</button>
+        <button class="sweet-toggle active" data-sweet="candy"       title="Hard Candy">🍬</button>
+        <button class="sweet-toggle active" data-sweet="choc"        title="Chocolate">🍫</button>
+        <button class="sweet-toggle active" data-sweet="icecream"    title="Ice Cream">🍦</button>
+        <button class="sweet-toggle active" data-sweet="donut"       title="Donut">🍩</button>
+        <button class="sweet-toggle active" data-sweet="gummy"       title="Gummy Bear">🐻</button>
+        <button class="sweet-toggle active" data-sweet="licorice"    title="Licorice">⬛</button>
+        <button class="sweet-toggle active" data-sweet="sour"        title="Sour Gummy">⚡</button>
+        <button class="sweet-toggle active" data-sweet="marshmallow" title="Marshmallow">☁️</button>
+        <button class="sweet-toggle active" data-sweet="toffee"      title="Toffee">🟫</button>
+        <button class="sweet-toggle active" data-sweet="fruitgum"    title="Fruit Gum">🟢</button>
+        <button class="sweet-toggle active" data-sweet="colabot"     title="Cola Bottle">🍷</button>
+        <button class="sweet-toggle active" data-sweet="cherrystrip" title="Cherry Strip">🔴</button>
+        <button class="sweet-toggle active" data-sweet="berrygum"    title="Berry Gum">🟣</button>
+        <button class="sweet-toggle active" data-sweet="saltcaramel" title="Salt Caramel">🍯</button>
+        <button class="sweet-toggle active" data-sweet="darkchoc"    title="Dark Chocolate">⬛🍫</button>
+        <button class="sweet-toggle active" data-sweet="whitechoc"   title="White Chocolate">⚪🍫</button>
+        <button class="sweet-toggle active" data-sweet="peppermint"  title="Peppermint">🍃</button>
+        <button class="sweet-toggle active" data-sweet="haribo"      title="Haribo">👻</button>
+        <button class="sweet-toggle active" data-sweet="salixtw"     title="Salix Twist">🌀</button>
+        <button class="sweet-toggle active" data-sweet="butterscotch" title="Butterscotch">🟡</button>
+        <button class="sweet-toggle active" data-sweet="nougat"      title="Nougat">🟨</button>
+        <button class="sweet-toggle active" data-sweet="praline"     title="Praline">🤎</button>
+        <button class="sweet-toggle active" data-sweet="fizzy"       title="Fizzy">✨</button>
+        <button class="sweet-toggle active" data-sweet="strawberry"  title="Strawberry">🍓</button>
+        <button class="sweet-toggle active" data-sweet="raspberry"   title="Raspberry">🫐</button>
+        <button class="sweet-toggle active" data-sweet="lemon"       title="Lemon">🍋</button>
+        <button class="sweet-toggle active" data-sweet="orange"      title="Orange">🍊</button>
+        <button class="sweet-toggle active" data-sweet="watermelon"  title="Watermelon">🍉</button>
+        <button class="sweet-toggle active" data-sweet="grape"       title="Grape">🍇</button>
+        <button class="sweet-toggle active" data-sweet="mango"       title="Mango">🥭</button>
+        <button class="sweet-toggle active" data-sweet="pineapple"   title="Pineapple">🍍</button>
+        <button class="sweet-toggle active" data-sweet="bubblegum"   title="Bubble Gum">💗</button>
+        <button class="sweet-toggle active" data-sweet="softcandy"   title="Soft Candy">🧁</button>
+        <button class="sweet-toggle active" data-sweet="sugarcrystal" title="Sugar Crystal">💎</button>
+      </div>
+    </div>
   </div>
 
   <div id="score-box">🪙 <span id="scoreVal">0</span></div>
